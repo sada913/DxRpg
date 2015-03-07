@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7B01212D-242D-4A14-A9BB-4B0AE8245346}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>DxRpgProject</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\source;$(DX_LIB_VC_DIR)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(DX_LIB_VC_DIR)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\source;$(DX_LIB_VC_DIR)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(DX_LIB_VC_DIR)</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="map\0.txt" />
+    <Text Include="map\1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Battle\BattleAnimation.cpp" />
+    <ClCompile Include="source\Battle\BattleProcess.cpp" />
+    <ClCompile Include="source\Sequence\Game\Parent.cpp" />
+    <ClCompile Include="source\Battle\AbstractBattleCharacter.cpp" />
+    <ClCompile Include="source\Map\CsvMapReader.cpp" />
+    <ClCompile Include="source\Map\AbstractMapCharacter.cpp" />
+    <ClCompile Include="source\Map\MapCityCharacter.cpp" />
+    <ClCompile Include="source\Battle\BattleCharacter.cpp" />
+    <ClCompile Include="source\AppMain.cpp" />
+    <ClCompile Include="source\Sequence\Game\Battle.cpp" />
+    <ClCompile Include="source\Battle\BattleMonster.cpp" />
+    <ClCompile Include="source\GameController.cpp" />
+    <ClCompile Include="source\Map\MapMainCharacter.cpp" />
+    <ClCompile Include="source\Sequence\Game\Map.cpp" />
+    <ClCompile Include="source\ResourceLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\SharedCharacterStatus.h" />
+    <ClInclude Include="source\Battle\BattleAnimation.h" />
+    <ClInclude Include="source\Battle\BattleProcess.h" />
+    <ClInclude Include="source\Sequence\Game\Child.h" />
+    <ClInclude Include="source\Sequence\Game\Parent.h" />
+    <ClInclude Include="source\Battle\AbstractBattleCharacter.h" />
+    <ClInclude Include="source\Map\CsvMapReader.h" />
+    <ClInclude Include="source\Map\AbstractMapCharacter.h" />
+    <ClInclude Include="source\Map\MapCityCharacter.h" />
+    <ClInclude Include="source\Battle\BattleCharacter.h" />
+    <ClInclude Include="source\Sequence\Child.h" />
+    <ClInclude Include="source\Sequence\Game\Battle.h" />
+    <ClInclude Include="source\Battle\BattleMonster.h" />
+    <ClInclude Include="source\GameController.h" />
+    <ClInclude Include="source\Map\MapMainCharacter.h" />
+    <ClInclude Include="source\Sequence\Game\Map.h" />
+    <ClInclude Include="source\ResourceLoader.h" />
+    <ClInclude Include="source\Sequence\Parent.h" />
+    <ClInclude Include="source\StdCommon.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="map\0.txt" />
+    <Text Include="map\1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\AppMain.cpp" />
+    <ClCompile Include="source\GameController.cpp" />
+    <ClCompile Include="source\ResourceLoader.cpp" />
+    <ClCompile Include="source\Map\MapMainCharacter.cpp" />
+    <ClCompile Include="source\Battle\BattleCharacter.cpp" />
+    <ClCompile Include="source\Map\AbstractMapCharacter.cpp" />
+    <ClCompile Include="source\Map\MapCityCharacter.cpp" />
+    <ClCompile Include="source\Battle\AbstractBattleCharacter.cpp" />
+    <ClCompile Include="source\Battle\BattleMonster.cpp" />
+    <ClCompile Include="source\Map\CsvMapReader.cpp" />
+    <ClCompile Include="source\Sequence\Game\Battle.cpp" />
+    <ClCompile Include="source\Sequence\Game\Map.cpp" />
+    <ClCompile Include="source\Sequence\Game\Parent.cpp" />
+    <ClCompile Include="source\Battle\BattleProcess.cpp" />
+    <ClCompile Include="source\Battle\BattleAnimation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\GameController.h" />
+    <ClInclude Include="source\ResourceLoader.h" />
+    <ClInclude Include="source\StdCommon.h" />
+    <ClInclude Include="source\Map\MapMainCharacter.h" />
+    <ClInclude Include="source\Battle\BattleCharacter.h" />
+    <ClInclude Include="source\Map\AbstractMapCharacter.h" />
+    <ClInclude Include="source\Map\MapCityCharacter.h" />
+    <ClInclude Include="source\Battle\AbstractBattleCharacter.h" />
+    <ClInclude Include="source\Battle\BattleMonster.h" />
+    <ClInclude Include="source\Map\CsvMapReader.h" />
+    <ClInclude Include="source\Sequence\Child.h" />
+    <ClInclude Include="source\Sequence\Parent.h" />
+    <ClInclude Include="source\Sequence\Game\Battle.h" />
+    <ClInclude Include="source\Sequence\Game\Map.h" />
+    <ClInclude Include="source\Sequence\Game\Parent.h" />
+    <ClInclude Include="source\Sequence\Game\Child.h" />
+    <ClInclude Include="source\Battle\BattleProcess.h" />
+    <ClInclude Include="source\Battle\BattleAnimation.h" />
+    <ClInclude Include="source\SharedCharacterStatus.h" />
+  </ItemGroup>
+</Project>
