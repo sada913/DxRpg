@@ -148,7 +148,6 @@ ATBカウンタ＝最大になるとレインボーになるあのメーターのカウンタ
 ## ライセンス
 
 ソースコードに関してはMITライセンス  
-[MIT](https://github.com/fa11enprince/open_git_repos/blob/master/DxRpgProject/LICENSE)  
 その他素材(画像・音楽)については出所が不明なため配布は禁止です。
 
 ## 著者
