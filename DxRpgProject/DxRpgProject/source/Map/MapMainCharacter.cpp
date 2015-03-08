@@ -179,24 +179,5 @@ bool MapMainCharacter::encountersEnemy()
     return enc;
 }
 
-/*
-void MapMainCharacter::initializeParameter()
-{
-#if _DEBUG
-    scs_->hp_ = 1352;
-#else
-    scs_->hp_ = 1352;
-#endif
-    scs_->hpMax_ = 1352;
-    scs_->mp_ = 97;
-    scs_->mpMax_ = 102;
-    scs_->power_ = 20;
-    scs_->defense_ = 20;
-    scs_->strength_ = 20;
-    scs_->magic_ = 0;
-    scs_->weapon_ = 20;
-    scs_->equip_ = 20;
-    scs_->level_ = 10;
-}
-*/
+
 }
