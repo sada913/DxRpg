@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "StdCommon.h"
 #include "Sequence/Game/Child.h"
 
