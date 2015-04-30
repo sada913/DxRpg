@@ -4,6 +4,7 @@
 
 namespace Map
 {
+
 const int    EncRand  =  4;                // バトルに突入する確率
 const int    EncMinWalkCnt = 4;            // バトルに突入する最低歩数
 

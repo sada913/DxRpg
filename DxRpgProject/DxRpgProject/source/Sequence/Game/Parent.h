@@ -7,7 +7,7 @@ namespace Sequence
 {
 namespace Game
 {
-//class Map;
+
 class Child;
 class Parent
     : public Sequence::Child
@@ -37,5 +37,6 @@ private:
     int  mapStage_;
     void initializeParameter();
 };
+
 }
 }

@@ -17,40 +17,42 @@ namespace Sequence
 {
 namespace Game
 {
-    enum NextSequence
-    {
-        NextMap,
-        NextBattleShatter,
-        NextBattleEnter,
-        NextBattleMain,
-        NextBattleDebug,
-        NextRestart,
-    };
 
-    class Battle : public Sequence::Game::Child
-    {
-    public:
-        Battle(SharedCharacterStatus *scs);
-        ~Battle();
-        void   update(Sequence::Game::Parent *parent);
+enum NextSequence
+{
+    NextMap,
+    NextBattleShatter,
+    NextBattleEnter,
+    NextBattleMain,
+    NextBattleDebug,
+    NextRestart,
+};
 
-    private:
-        void   startBattleShatter();
-        void   startBattleEnter();
-        //void   debugBattleMode();
+class Battle : public Sequence::Game::Child
+{
+public:
+    Battle(SharedCharacterStatus *scs);
+    ~Battle();
+    void   update(Sequence::Game::Parent *parent);
 
-        NextSequence nextSequence_;
-        GameController  *gc_;
-        ResourceLoader  *rl_;
-        ::Battle::BattleProcess *bp_;
+private:
+    void   startBattleShatter();
+    void   startBattleEnter();
+    //void   debugBattleMode();
 
-        double startBattleX_[ImgCharDivNum];
-        double startBattleY_[ImgCharDivNum];
-        double randX_[ImgCharDivNum];
-        double randY_[ImgCharDivNum];
+    NextSequence nextSequence_;
+    GameController  *gc_;
+    ResourceLoader  *rl_;
+    ::Battle::BattleProcess *bp_;
 
-        ::Battle::BattleCharacter *chr_;
-        ::Battle::BattleMonster   *mon_;
-    };
+    double startBattleX_[ImgCharDivNum];
+    double startBattleY_[ImgCharDivNum];
+    double randX_[ImgCharDivNum];
+    double randY_[ImgCharDivNum];
+
+    ::Battle::BattleCharacter *chr_;
+    ::Battle::BattleMonster   *mon_;
+};
+
 }
 }

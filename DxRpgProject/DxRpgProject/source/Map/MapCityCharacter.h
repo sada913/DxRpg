@@ -4,6 +4,7 @@
 
 namespace Map
 {
+
 // 町キャラクタのクラス
 class MapCityCharacter : public AbstractMapCharacter
 {
@@ -14,4 +15,5 @@ public:
     void initMapState(int tx, int ty, int dir, int kind) override;
     bool move(int *isPassable) override;
 };
+
 }

@@ -9,9 +9,10 @@
 
 namespace Battle
 {
-    BattleProcess::BattleProcess(BattleCharacter *chr, BattleMonster *mon)
-        :isWin_(false), isGameover_(false),
-        isWinMoveNext_(false), isGameoverMoveNext_(false)
+
+BattleProcess::BattleProcess(BattleCharacter *chr, BattleMonster *mon)
+    :isWin_(false), isGameover_(false),
+     isWinMoveNext_(false), isGameoverMoveNext_(false)
 {
     gc_ = ::GameController::getInstance();
     rl_ = ::ResourceLoader::getInstance();

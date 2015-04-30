@@ -3,6 +3,7 @@
 
 namespace Map
 {
+
 class CsvMapReader
 {
 public:
@@ -17,4 +18,5 @@ private:
     int    mapSize_;
     int    mapData_[YBlock * XBlock];
 };
+
 }

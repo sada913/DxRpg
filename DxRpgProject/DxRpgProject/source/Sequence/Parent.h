@@ -4,6 +4,7 @@
 
 namespace Sequence
 {
+
 class Parent
 {
 public:
@@ -66,4 +67,5 @@ private:
     NextSequence nextSequence_;
     Child *child_;
 };
+
 }

@@ -3,6 +3,7 @@
 class ResourceLoader;
 namespace Battle
 {
+
 const int    PopDamMax = 20;
 const int    AnimationMax = 30;
 struct PopDamage
@@ -54,4 +55,5 @@ private:
 
     ResourceLoader *rl_;
 };
+
 }
