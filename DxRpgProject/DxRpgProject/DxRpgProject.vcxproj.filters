@@ -41,5 +41,12 @@
     <ClInclude Include="source\Battle\BattleProcess.h" />
     <ClInclude Include="source\Battle\BattleAnimation.h" />
     <ClInclude Include="source\SharedCharacterStatus.h" />
+    <ClInclude Include="source\Resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon\claudia01-001.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="source\Resource.rc" />
   </ItemGroup>
 </Project>

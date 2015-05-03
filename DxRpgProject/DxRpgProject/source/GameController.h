@@ -20,15 +20,14 @@ public:
     };
     static GameController* getInstance();
 
-    void    calcFps();
-    void    graphFps();
-    void    controlFps();
     char    getKey(int input) const;
     int     getAllKeyPressed();
+
     void    increaseGCount();
     int     getGCount() const;
 
     void    adjustKeyState();
+    void    control();
 
 private:
     // コンストラクタ・コピーコンストラクタで生成やコピーを禁止
@@ -36,6 +35,10 @@ private:
     ~GameController() { }
     GameController(const GameController&) { }
     GameController& operator=(const GameController&) { }
+
+    void    calcFps();
+    void    graphFps();
+    void    controlFps();
 
     int     gCount_;
     int     fpsAverage_;                 // 平均ＦＰＳ

@@ -10,7 +10,7 @@ GameController *GameController::getInstance()
 // FPS計測関数
 void GameController::calcFps()
 {
-    fps_[gCount_ % MetricTimes] = waitTime_;                // １周の時間を格納
+    fps_[gCount_ % MetricTimes] = waitTime_;               // １周の時間を格納
     if ( (gCount_ % MetricTimes) == (MetricTimes - 1) )    // 計測回数に達したら
     {
         fpsAverage_ = 0;
@@ -72,6 +72,7 @@ int GameController::getGCount() const
 }
 
 // マップ画面の移動以外で、移動速度が早くなりすぎるのを防ぐための機能
+// メインループの最初に必ず書かなければならない
 void GameController::adjustKeyState()
 {
     for (int i = 0; i < KeyKindNum; i++)
@@ -83,4 +84,15 @@ void GameController::adjustKeyState()
         }
         prevKey_[i] = key_[i];        // 今の入力状態を過去に入力されたデータとしてコピー
     }
+}
+
+// 通常はメインループの中でこれだけを呼べばよい
+void GameController::control()
+{
+    controlFps();        // FPS制御（FPSを60くらいに保つための関数）
+#ifdef _DEBUG
+    calcFps();           // 現在のFPSを計算
+    graphFps();
+#endif
+    increaseGCount();    // 内部カウンタを1増加
 }

@@ -2,6 +2,7 @@
 #include "GameController.h"
 #include "ResourceLoader.h"
 #include "Sequence/Parent.h"
+#include "Resource.h"
 
 // ---------------------------------------------------------------
 // エントリポイント
@@ -10,10 +11,10 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 #ifdef _DEBUG
     _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); // メモリリーク検出
-#endif
-    // タイトルをセット
-    DxLib::SetWindowTextA("DX RPG");
-    // ウィンドウモードにセット＆ＤＸライブラリ開始処理
+#endif   
+    DxLib::SetWindowTextA("DX RPG");    // タイトルをセット
+    SetWindowIconID(ID_ICON);           // アイコンをセット
+    // ウィンドウモードにセット
     if ( DxLib::ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK
         || DxLib::DxLib_Init() == -1
         || DxLib::SetWindowSizeExtendRate(1.0) == -1 )
@@ -36,24 +37,16 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     }
     
     // メッセージループ
-    while( DxLib::ProcessMessage()    == 0
+    while( DxLib::ProcessMessage() == 0
         && DxLib::ClearDrawScreen() == 0
-        && gc->getAllKeyPressed()    == 0
-        && gc->getKey(KEY_INPUT_ESCAPE)    == 0 )
+        && gc->getAllKeyPressed() == 0
+        && gc->getKey(KEY_INPUT_ESCAPE) == 0 )
     {
-        gc->adjustKeyState(); // キーの入力スピード調整(Map以外)
-
+        gc->adjustKeyState();
         parent->update();
-
-        gc->controlFps();        // FPS制御（FPSを60くらいに保つための関数）
-#ifdef _DEBUG
-        gc->calcFps();           // 現在のFPSを計算
-#endif
-        gc->increaseGCount();    // 内部カウンタを1増加
-        gc->graphFps();
+        gc->control();      
         DxLib::ScreenFlip();     // 裏画面を反映
     }
-    // ＤＸライブラリ終了処理
     DxLib::DxLib_End();
     
     return 0;
