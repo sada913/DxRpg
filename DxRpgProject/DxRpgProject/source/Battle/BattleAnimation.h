@@ -6,6 +6,7 @@ namespace Battle
 
 const int    PopDamMax = 20;
 const int    AnimationMax = 30;
+const int    SEPlaying = 1;
 struct PopDamage
 {
     bool     flag;
@@ -43,7 +44,7 @@ public:
 
 private:
     void   animation0(int idx, AbstractBattleCharacter *c1,
-        AbstractBattleCharacter *c2, int x, int y, int k);
+        AbstractBattleCharacter *c2, int x, int y);
     void   animation1(AbstractBattleCharacter *c, int idx, int x, int y);
     void   animation2(AbstractBattleCharacter *c, int idx, int x, int y);
     void   graphDamage();

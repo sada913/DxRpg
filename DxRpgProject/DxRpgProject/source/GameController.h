@@ -2,8 +2,8 @@
 #include <climits>
 namespace
 {
-    const int    MetricTimes = 60;            // FPS計測回数
-    const int    OneFrameMSec = 16;            // 1フレームのミリ秒(16ms)
+    const int    MetricTimes = 60;          // FPS計測回数
+    const int    OneFrameMillsec = 16;         // 1フレームのミリ秒(16ms)
     const int    GCountMax = INT_MAX;       // グローバルカウンタＭＡＸ
     const int    KeyKindNum = 256;
 }
@@ -41,7 +41,7 @@ private:
     void    controlFps();
 
     int     gCount_;
-    int     fpsAverage_;                 // 平均ＦＰＳ
+    int     frameSpdAvg;          // 平均の1フレーム時間
     int     waitTime_;                   // ＦＰＳで使用する変数
     int     prevTime_;
     int     fps_[MetricTimes];

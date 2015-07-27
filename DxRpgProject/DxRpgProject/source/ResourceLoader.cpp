@@ -178,6 +178,9 @@ int ResourceLoader::load()
         hdlSoundEffect_[100] = LoadSoundMem("sound/SE/100.ogg");
         THROWS_EX(hdlSoundEffect_[100], "sound/SE/100.ogg");
         dispProgress();
+		hdlSoundEffect_[101] = LoadSoundMem("sound/SE/101.ogg");
+		THROWS_EX(hdlSoundEffect_[101], "sound/SE/101.ogg");
+		dispProgress();
         hdlSoundEffect_[200] = LoadSoundMem("sound/SE/200.ogg");
         THROWS_EX(hdlSoundEffect_[200], "sound/SE/200.ogg");
         dispProgress();

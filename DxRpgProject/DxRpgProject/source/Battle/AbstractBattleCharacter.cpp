@@ -7,7 +7,7 @@ namespace Battle
 AbstractBattleCharacter::AbstractBattleCharacter()
     :x_(0), y_(0),
     tp_(0), cntSpeed_(0.0),
-    atbCnt_(0), atbCntFlag_(false), motionFlag_(false), toHp_(0),
+    atbCnt_(0), atbCntFlag_(false), motionFlag_(false), /*toHp_(0),*/
     menuSelect_(0), menuSelectY_(0), actionCnt_(false), damageActionCnt_(0),
     actionFlag_(false), graphFlag_(0), animationFlag_(false), damageFlag_(false),
     damage_(0), centerX_(0), centerY_(0)
@@ -116,20 +116,20 @@ void AbstractBattleCharacter::setMotionFlag(bool motionFlag)
     motionFlag_ = motionFlag;
 }
 
-int   AbstractBattleCharacter::getToHp() const
-{
-    return toHp_;
-}
+//int   AbstractBattleCharacter::getToHp() const
+//{
+//    return toHp_;
+//}
 
-void  AbstractBattleCharacter::setToHp(int toHp)
-{
-    toHp_ = toHp;
-}
+//void  AbstractBattleCharacter::setToHp(int toHp)
+//{
+//    toHp_ = toHp;
+//}
 
-void  AbstractBattleCharacter::increaseToHp(int damage)
-{
-    toHp_ += damage;
-}
+//void  AbstractBattleCharacter::increaseToHp(int damage)
+//{
+//    toHp_ += damage;
+//}
 
 
 Status &AbstractBattleCharacter::getStatus()

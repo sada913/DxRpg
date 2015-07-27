@@ -13,22 +13,22 @@ void GameController::calcFps()
     fps_[gCount_ % MetricTimes] = waitTime_;               // １周の時間を格納
     if ( (gCount_ % MetricTimes) == (MetricTimes - 1) )    // 計測回数に達したら
     {
-        fpsAverage_ = 0;
+        frameSpdAvg = 0;
         for ( int i = 0; i < MetricTimes; i++ )
         {
-            fpsAverage_ += fps_[i];
+            frameSpdAvg += fps_[i];
         }
-        fpsAverage_ /= MetricTimes;
+        frameSpdAvg /= MetricTimes;
     }
 }
 
 // FPS表示
 void GameController::graphFps()
 {
-    if ( fpsAverage_ != 0 )    // 0割り禁止により、FPS平均が0じゃなかったらFPS表示
+    if ( frameSpdAvg != 0 )    // 0割り禁止により、FPS平均が0じゃなかったらFPS表示
     {
-        DxLib::DrawFormatString(0, 0, DxLib::GetColor(255, 255, 255),
-            "FPS %.1f", 1000.0 / (double)(fpsAverage_) );
+        DxLib::DrawFormatString(0, 0, static_cast<int>(DxLib::GetColor(255, 255, 255)),
+            "FPS %.1f", 1000.0 / (double)(frameSpdAvg) );
     }
 }
 
@@ -38,12 +38,12 @@ void GameController::controlFps()
     waitTime_ = DxLib::GetNowCount() - prevTime_;    //１周の処理にかかった時間を計算
     if ( prevTime_ == 0 )
     {                                            // t == 0 つまり一番最初に処理が行われたときは16を代入
-        waitTime_ = OneFrameMSec;    
+        waitTime_ = OneFrameMillsec;    
     }
     prevTime_ = DxLib::GetNowCount();            // 現在の時刻を格納
-    if ( OneFrameMSec > waitTime_ )              // １周かかった時間がFPS60つまり１周16msよりも早く行われたとき
+    if ( OneFrameMillsec > waitTime_ )              // １周かかった時間がFPS60つまり１周16msよりも早く行われたとき
     {
-        Sleep(OneFrameMSec - waitTime_);         // FPS60になるように、つまり１周16msまで待つ。
+        Sleep(static_cast<DWORD>(OneFrameMillsec - waitTime_));         // FPS60になるように、つまり１周16msまで待つ。
     }
 }
 

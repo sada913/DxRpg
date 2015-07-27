@@ -44,7 +44,7 @@ private:
     bool   hasChanged_;
     NextSequence nextSequence_;
 
-    void    createInstance();
+    //void    createInstance();
     void    initMapState();
     void    initCharState();
     void    drawMap();

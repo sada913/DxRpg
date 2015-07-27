@@ -8,7 +8,7 @@ namespace Battle
 
 const int  BattleStringLenMax = 32;
 const char Main[5][BattleStringLenMax] =
-{ "攻撃", "魔法", "アビリティ", "アイテム", "逃げる" };
+    { "攻撃", "魔法", "アビリティ", "アイテム", "逃げる" };
 const char Sub[5][5][BattleStringLenMax] =
 {
     { "通常攻撃", "テクニカルアタック", "", "", "" },
@@ -101,13 +101,11 @@ private:
     void   doAction(AbstractBattleCharacter *self,
         AbstractBattleCharacter *opponent, CharacterEnemyKind k);
     
-    int    attackAction(AbstractBattleCharacter *my, AbstractBattleCharacter *you);
+    int    attackAction(AbstractBattleCharacter *my, AbstractBattleCharacter *you, CharacterEnemyKind k);
     int    cureAction(AbstractBattleCharacter *c);
     int    abilityAction(AbstractBattleCharacter *c);
-    int    calculateTp(int damage, int hp);
 
     int    decideDamage(AbstractBattleCharacter *c, int to, int actKind);
-    void   changeAbility();
     void   addBoard(char *message);
 
     void   decideGameover();
@@ -127,7 +125,7 @@ private:
     int    calcLine(int ix1, int iy1, int ix2, int iy2, int iy3, int ix);
 
     void   graphBar(int x, int y, int hp, int hpMax,
-        int battleToHp, int mp, int mpMax, int tp, int atbCnt,
+        int mp, int mpMax, int tp, int atbCnt,
         int actCnt, int damActCnt);
     void   decorateMeter(int x, int y, int h, int len);
 

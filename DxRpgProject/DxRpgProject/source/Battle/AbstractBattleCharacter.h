@@ -51,9 +51,9 @@ public:
     void    setTp(int tp);
     void    calculateTp();
     void    chargeTp();
-    int     getToHp() const;
-    void    setToHp(int toHp);
-    void    increaseToHp(int damage);
+    //int     getToHp() const;
+    //void    setToHp(int toHp);
+    //void    increaseToHp(int damage);
 
     Status  &getStatus();
     void    setStatus(Status status);
@@ -125,7 +125,7 @@ protected:
     int     atbCnt_;
     bool    atbCntFlag_;
     bool    motionFlag_;
-    int     toHp_;   // ダメージ等を受けたときに時間差で到達するHP
+    //int     toHp_;   // ダメージ等を受けたときに時間差で到達するHP
     int     menuSelect_;
     int     menuSelectY_;
     int     actionCnt_;

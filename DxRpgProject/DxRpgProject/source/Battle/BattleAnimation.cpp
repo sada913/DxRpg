@@ -51,16 +51,16 @@ void BattleAnimation::graphAnimation(BattleCharacter *chr, BattleMonster *mon)
                     // 敵
                     if (animation_[i].target == 0)    // ターゲットが敵no.0だったら
                     {
-                        animation0(i, mon, chr, mon->getX() + 5, mon->getY() + 5, 0);
+                        animation0(i, mon, chr, mon->getX() + 5, mon->getY() + 5);
                     }
                     // 味方
                     if (animation_[i].target == 100)  // ターゲットが味方no.0なら
                     {
-                        animation0(i, chr, mon, chr->getX() - 32, chr->getY() - 16, 0);
+                        animation0(i, chr, mon, chr->getX() - 32, chr->getY() - 16);
                     }
                     break;
-                case 2:    // 回復
-                    // TODO: 改善の余地あり
+                case 2:    // 魔法
+                    // 回復魔法
                     if (animation_[i].kind == 20000)
                     {
                         // 敵
@@ -74,21 +74,22 @@ void BattleAnimation::graphAnimation(BattleCharacter *chr, BattleMonster *mon)
                             animation1(chr, i, -30, 20);
                         }
                     }
+					// 攻撃魔法
                     else
                     {
                         // 敵
                         if (animation_[i].target == 0)    // ターゲットが敵no.0だったら
                         {
-                            animation0(i, mon, chr, mon->getX() + 5, mon->getY() + 5, 1);
+                            animation0(i, mon, chr, mon->getX() + 5, mon->getY() + 5);
                         }
                         // 味方
                         if (animation_[i].target == 100)  // ターゲットが見方no.0なら
                         {
-                            animation0(i, chr, mon, chr->getX() - 32, chr->getY() - 16, 1);
+                            animation0(i, chr, mon, chr->getX() - 32, chr->getY() - 16);
                         }
                     }
                     break;
-                case 3:    // Ability
+                case 3:    // 特殊能力 Ability
                     // 敵
                     if (animation_[i].actor == 0)
                     {
@@ -165,12 +166,9 @@ void BattleAnimation::calcDamage(int t)
     }
 }
 
-// TODO: もっとここ整理する
 void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
-    AbstractBattleCharacter *c2, int x, int y, int k)
+    AbstractBattleCharacter *c2, int x, int y)
 {
-    UNREFERENCED_PARAMETER(k);
-
     const int ComBlinkTime = 10;  // 調整
 
     int animationTime[5] = { -15, 40, 60, 80, 100 };
@@ -194,33 +192,35 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
     int t3 = blinkTime[kind];
     animation_[idx].cnt++;
 
-    bool condition1 = animation_[idx].cnt == 5
-        && animation_[idx].kind == 10000;
-    bool condition2 = animation_[idx].cnt == 5 + t2;
-    bool condition3 = animation_[idx].cnt == 5
-        && 20000 <= animation_[idx].kind && animation_[idx].kind < 30000;
-    bool condition4 = animation_[idx].cnt == 25 + t2
-        && 20000 <= animation_[idx].kind && animation_[idx].kind < 30000;
-    if (condition1)
+	bool cond_normal_attack = animation_[idx].kind == 10000;
+	bool cond_magical_attack = 20000 <= animation_[idx].kind && animation_[idx].kind < 30000;
+
+
+    if (animation_[idx].cnt == 5 && cond_normal_attack)
     {
         // シュッ
         DxLib::PlaySoundMem(rl_->getHdlSoundEffect(6), DX_PLAYTYPE_BACK);
     }
-    if (condition2)
+	// これはバグっぽいぞ……
+    if (animation_[idx].cnt == 45)
     {
-        // それぞれの効果音
+        // それぞれの効果音 現状 100 ～ 304まで
         DxLib::PlaySoundMem(
-            rl_->getHdlSoundEffect(animation_[idx].kind / 100),
-            DX_PLAYTYPE_BACK);
+            rl_->getHdlSoundEffect(animation_[idx].kind / 100), DX_PLAYTYPE_BACK);
+#ifdef _DEBUG
+		DxLib::printfDx("sound idx: %d\n", animation_[idx].kind / 100);
+#endif
+		// バックグラウンド再生 鳴らし始めるとすぐ次の処理に移る
     }
-    if (condition3)
+	// 詠唱ロジック
+    if (animation_[idx].cnt == 5 && cond_magical_attack)
     {
-        // 詠唱
+        // 詠唱音
         DxLib::PlaySoundMem(rl_->getHdlSoundEffect(5), DX_PLAYTYPE_LOOP);
     }
-    // TODO: これは何の処理？？
-    if (DxLib::CheckSoundMem(rl_->getHdlSoundEffect(5)) == 1
-        && 20000 <= animation_[idx].kind && animation_[idx].kind < 30000)
+    // 詠唱音が再生中の場合
+    if (DxLib::CheckSoundMem(rl_->getHdlSoundEffect(5)) == SEPlaying
+        && cond_magical_attack)
     {
         DxLib::DrawGraph(c2->getX() - 60 + DxLib::GetRand(2),
             c2->getY() - 35 + DxLib::GetRand(2),
@@ -240,11 +240,12 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
             c2->getY() - 20,
             DxLib::GetColor(255, 255, 0), TRUE);
     }
-    if (condition4)
-    {
-        // 詠唱などの場合 stop
-        DxLib::StopSoundMem(rl_->getHdlSoundEffect(5));
-    }
+	if (animation_[idx].cnt == 25 + t2 && cond_magical_attack)
+	{
+		// 詠唱の場合 stop
+		DxLib::StopSoundMem(rl_->getHdlSoundEffect(5));
+	}
+
     // 点滅処理
     for (int i = 0; i < 4; i++)
     {
@@ -260,15 +261,15 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
     // 動作アニメーション描画
     if (30 + t1 <= animation_[idx].cnt && animation_[idx].cnt < 70 + t1)
     {
-        int kind = (animation_[idx].cnt - (30 + t1))
+        int kind2 = (animation_[idx].cnt - (30 + t1))
             / 5 + (animation_[idx].kind % 10000) / 100 * 8;
-        DxLib::DrawGraph(x, y, rl_->getHdlImgAnimation(1, kind), TRUE);
+        DxLib::DrawGraph(x, y, rl_->getHdlImgAnimation(1, kind2), TRUE);
     }
 
     if (animation_[idx].cnt == 70 + t1)  // 調整 -> 直後に
     {
         animation_[idx].flag = false;
-        c2->setActionFlag(true);    // TODO:重要
+        c2->setActionFlag(true);    // 重要
     }
     // アビリティ4の時だけ
     if (c2->getAbility(4).flag)

@@ -238,7 +238,7 @@ void BattleProcess::doAction(AbstractBattleCharacter *self,
             case 20200:
             case 20300:
             case 20400:
-                damage = attackAction(self, opponent);
+                damage = attackAction(self, opponent, k);
                 ba_->setPopDamage(damage, opponent->getCenterX() - 20, opponent->getCenterY() - 20, 0);
                 // 味方
                 if (k == Character)
@@ -333,16 +333,17 @@ void BattleProcess::doAction(AbstractBattleCharacter *self,
 
 int BattleProcess::attackAction(
     AbstractBattleCharacter *self,
-    AbstractBattleCharacter *opponent)
+    AbstractBattleCharacter *opponent,
+	CharacterEnemyKind k)
 {
-    int damage = decideDamage(self, 0, self->getMenuSelect());
+    int damage = decideDamage(self, ((k == Character)?0:1), self->getMenuSelect());
     if (self->getAbility(3).flag)
     {
         damage *= 2;
     }
     opponent->setDamage(damage);  // ダメージをセット
     // 体力が時間差で減っていく、最終的な終着位置
-    opponent->setToHp(opponent->getScs()->hp_ - opponent->getDamage());
+    //opponent->setToHp(opponent->getScs()->hp_ - opponent->getDamage());
     
     opponent->calculateTp();
     // 1回の攻撃で自分に8～13 TPがたまる
@@ -364,17 +365,20 @@ int BattleProcess::cureAction(AbstractBattleCharacter *c)
     int damage = decideDamage(c, 0, c->getMenuSelect());
     c->decreaseMp(9);
     c->increaseHp(damage);
-    c->increaseToHp(damage);
-    // 回復しすぎたぶん戻す
+	// 2015/07/27 DEL
+	//c->increaseToHp(damage);
+    
+	// 回復しすぎたぶん戻す
     if (c->getScs()->hp_ > c->getScs()->hpMax_)
     {
         c->getScs()->hp_ = c->getScs()->hpMax_;
-        c->setToHp(c->getScs()->hp_);
+        //c->setToHp(c->getScs()->hp_);
     }
     if (c->getTp() > 300)
     {
         c->setTp(300);
     }
+	c->increaseHp(0);   // 回復量を戻す
 
     c->changeAbility();
     return damage;
@@ -413,11 +417,11 @@ int BattleProcess::abilityAction(AbstractBattleCharacter *c)
             break;
         case 30300:
             damage = decideDamage(c, 2, c->getMenuSelect());
-            c->setToHp(damage);
-            if (c->getToHp() < 0)
-            {
-                c->setToHp(0);
-            }
+            //c->setToHp(damage);
+            //if (c->getToHp() < 0)
+            //{
+            //    c->setToHp(0);
+            //}
             c->getAbility(3).flag = true;
             c->getAbility(3).cnt = 3;
             addBoard("次回の攻撃時２倍のダメージ");
@@ -435,6 +439,7 @@ int BattleProcess::abilityAction(AbstractBattleCharacter *c)
     return damage;
 }
 
+// to: 0:味方->敵、1:敵->味方
 int  BattleProcess::decideDamage(AbstractBattleCharacter *c, int to, int actKind)
 {
     int power = 0;
@@ -448,10 +453,14 @@ int  BattleProcess::decideDamage(AbstractBattleCharacter *c, int to, int actKind
         case 0:     // 味方の「通常攻撃」
             chr_->getOffenseParam(&power, &strength, &weapon, &level);
             mon_->getDefenseParam(&defense, &equip);
-            if (actKind / 10000 == 2)      // TODO: 意味を書く
+            if (actKind % 10000 == 2)      // 武力の泉の時(下1ケタが2)
             {
                 power += 100 * (actKind % 10000) / 100;
             }
+			if (actKind % 10000 == 100)   // 特殊攻撃
+			{
+				power *= 4;
+			}
             break;
         case 1:     // 敵の「通常攻撃」
             mon_->getOffenseParam(&power, &strength, &weapon, &level);
@@ -559,7 +568,7 @@ void BattleProcess::displayMeter()
     decreaseHpAction(mon_);
     graphBar(MonMtX, MonMtY,
         mon_->getScs()->hp_, mon_->getScs()->hpMax_,
-        mon_->getToHp(),
+        //mon_->getToHp(),
         mon_->getScs()->mp_, mon_->getScs()->mpMax_,
         mon_->getTp(), mon_->getAtbCnt(),
         mon_->getActionCnt(),
@@ -568,7 +577,7 @@ void BattleProcess::displayMeter()
     decreaseHpAction(chr_);
     graphBar(ChrMtX, ChrMtY,
         chr_->getScs()->hp_, chr_->getScs()->hpMax_,
-        chr_->getToHp(),
+        //chr_->getToHp(),
         chr_->getScs()->mp_, chr_->getScs()->mpMax_,
         chr_->getTp(), chr_->getAtbCnt(),
         chr_->getActionCnt(),
@@ -632,15 +641,15 @@ void BattleProcess::stopAbi(AbstractBattleCharacter *c)
     }
 }
 
-// HP現象のモーション
+// HP現象のモーション 一瞬で減るように改造
 void BattleProcess::decreaseHpAction(AbstractBattleCharacter *c)
 {
-    int speed;
-    
+    /*int speed;*/
     if (isGameover_ && isWin_)
     {
         return;
     }
+	/*
     if (c->getScs()->hp_ == c->getToHp())
     {
         return;
@@ -665,10 +674,19 @@ void BattleProcess::decreaseHpAction(AbstractBattleCharacter *c)
     {
         c->getScs()->hp_ = c->getToHp();
     }
+	*/
+	if (c->getScs()->hp_ - c->getDamage() < 0) {
+		c->getScs()->hp_ = 0;
+	}
+	else {
+		c->getScs()->hp_ -= c->getDamage();
+	}
+	c->setDamage(0);
 }
 
 void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
-    int toHp, int mp, int mpMax, int tp, int atbCnt,
+    /*int toHp,*/
+	int mp, int mpMax, int tp, int atbCnt,
     int actCnt, int damActCnt)
 {
     const int MeterHeight = 5;
@@ -718,12 +736,14 @@ void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
         DxLib::GetColor(0, 255, 255), TRUE);
     // HPメーターの中身
     DxLib::DrawBox(
-        x + 150 + toHp / hpMax,
-        y,
+        //x + 150 + toHp / hpMax,
+        x + 150 + hp / hpMax,
+		y,
         x + 150 * hp / hpMax,
         y + MeterHeight,
         DxLib::GetColor(200, 0, 0), TRUE);
-    decorateMeter(x, y, MeterHeight, 150 * toHp / hpMax);
+    //decorateMeter(x, y, MeterHeight, 150 * toHp / hpMax);
+	decorateMeter(x, y, MeterHeight, 150 * hp / hpMax);
 
     // MPメータの枠
     DxLib::DrawBox(
