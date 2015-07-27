@@ -334,7 +334,7 @@ void BattleProcess::doAction(AbstractBattleCharacter *self,
 int BattleProcess::attackAction(
     AbstractBattleCharacter *self,
     AbstractBattleCharacter *opponent,
-	CharacterEnemyKind k)
+    CharacterEnemyKind k)
 {
     int damage = decideDamage(self, ((k == Character)?0:1), self->getMenuSelect());
     if (self->getAbility(3).flag)
@@ -365,10 +365,10 @@ int BattleProcess::cureAction(AbstractBattleCharacter *c)
     int damage = decideDamage(c, 0, c->getMenuSelect());
     c->decreaseMp(9);
     c->increaseHp(damage);
-	// 2015/07/27 DEL
-	//c->increaseToHp(damage);
+    // 2015/07/27 DEL
+    //c->increaseToHp(damage);
     
-	// 回復しすぎたぶん戻す
+    // 回復しすぎたぶん戻す
     if (c->getScs()->hp_ > c->getScs()->hpMax_)
     {
         c->getScs()->hp_ = c->getScs()->hpMax_;
@@ -378,7 +378,7 @@ int BattleProcess::cureAction(AbstractBattleCharacter *c)
     {
         c->setTp(300);
     }
-	c->increaseHp(0);   // 回復量を戻す
+    c->increaseHp(0);   // 回復量を戻す
 
     c->changeAbility();
     return damage;
@@ -457,10 +457,10 @@ int  BattleProcess::decideDamage(AbstractBattleCharacter *c, int to, int actKind
             {
                 power += 100 * (actKind % 10000) / 100;
             }
-			if (actKind % 10000 == 100)   // 特殊攻撃
-			{
-				power *= 4;
-			}
+            if (actKind % 10000 == 100)   // 特殊攻撃
+            {
+                power *= 4;
+            }
             break;
         case 1:     // 敵の「通常攻撃」
             mon_->getOffenseParam(&power, &strength, &weapon, &level);
@@ -568,7 +568,6 @@ void BattleProcess::displayMeter()
     decreaseHpAction(mon_);
     graphBar(MonMtX, MonMtY,
         mon_->getScs()->hp_, mon_->getScs()->hpMax_,
-        //mon_->getToHp(),
         mon_->getScs()->mp_, mon_->getScs()->mpMax_,
         mon_->getTp(), mon_->getAtbCnt(),
         mon_->getActionCnt(),
@@ -577,7 +576,6 @@ void BattleProcess::displayMeter()
     decreaseHpAction(chr_);
     graphBar(ChrMtX, ChrMtY,
         chr_->getScs()->hp_, chr_->getScs()->hpMax_,
-        //chr_->getToHp(),
         chr_->getScs()->mp_, chr_->getScs()->mpMax_,
         chr_->getTp(), chr_->getAtbCnt(),
         chr_->getActionCnt(),
@@ -644,49 +642,22 @@ void BattleProcess::stopAbi(AbstractBattleCharacter *c)
 // HP現象のモーション 一瞬で減るように改造
 void BattleProcess::decreaseHpAction(AbstractBattleCharacter *c)
 {
-    /*int speed;*/
     if (isGameover_ && isWin_)
     {
         return;
     }
-	/*
-    if (c->getScs()->hp_ == c->getToHp())
-    {
-        return;
+
+    if (c->getScs()->hp_ - c->getDamage() < 0) {
+        c->getScs()->hp_ = 0;
     }
-    if (c->getScs()->hpMax_ < 300)
-    {
-        speed = 1;
+    else {
+        c->getScs()->hp_ -= c->getDamage();
     }
-    else
-    {
-        speed = c->getScs()->hpMax_ / 300;
-    }
-    if (c->getToHp() < 0)
-    {
-        c->setToHp(0);
-    }
-    if (c->getScs()->hp_ - speed > c->getToHp())
-    {
-        c->getScs()->hp_ = c->getScs()->hp_ - speed;
-    }
-    if (c->getScs()->hp_ - speed <= c->getToHp())
-    {
-        c->getScs()->hp_ = c->getToHp();
-    }
-	*/
-	if (c->getScs()->hp_ - c->getDamage() < 0) {
-		c->getScs()->hp_ = 0;
-	}
-	else {
-		c->getScs()->hp_ -= c->getDamage();
-	}
-	c->setDamage(0);
+    c->setDamage(0);
 }
 
 void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
-    /*int toHp,*/
-	int mp, int mpMax, int tp, int atbCnt,
+    int mp, int mpMax, int tp, int atbCnt,
     int actCnt, int damActCnt)
 {
     const int MeterHeight = 5;
@@ -736,14 +707,12 @@ void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
         DxLib::GetColor(0, 255, 255), TRUE);
     // HPメーターの中身
     DxLib::DrawBox(
-        //x + 150 + toHp / hpMax,
         x + 150 + hp / hpMax,
-		y,
+        y,
         x + 150 * hp / hpMax,
         y + MeterHeight,
         DxLib::GetColor(200, 0, 0), TRUE);
-    //decorateMeter(x, y, MeterHeight, 150 * toHp / hpMax);
-	decorateMeter(x, y, MeterHeight, 150 * hp / hpMax);
+    decorateMeter(x, y, MeterHeight, 150 * hp / hpMax);
 
     // MPメータの枠
     DxLib::DrawBox(
@@ -826,13 +795,13 @@ void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
         barColor, TRUE);
 
     DxLib::DrawFormatStringToHandle(x, y + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "HP %4d/%4d", hp, hpMax);	// HP数値表示
+        rl_->getHdlFont(0), "HP %4d/%4d", hp, hpMax);    // HP数値表示
     DxLib::DrawFormatStringToHandle(x, y + OffsetY + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "MP %4d/%4d", mp, mpMax);	// MP数値表示
+        rl_->getHdlFont(0), "MP %4d/%4d", mp, mpMax);    // MP数値表示
     DxLib::DrawFormatStringToHandle(x, y + (OffsetY * 2) + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "TP %8d%%", tp);	// TP数値表示
+        rl_->getHdlFont(0), "TP %8d%%", tp);    // TP数値表示
     DxLib::DrawFormatStringToHandle(x, y + (OffsetY * 3) + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "ATB %7d", atbCnt);	// ATB数値表示
+        rl_->getHdlFont(0), "ATB %7d", atbCnt);    // ATB数値表示
 
 #ifdef _DEBUG
     DxLib::DrawFormatStringToHandle(x, y - (OffsetY * 3) + 4, DxLib::GetColor(255, 255, 255),
@@ -1080,8 +1049,6 @@ void BattleProcess::graphIcon()
             {
                 x = -5;
             }
-            //DxLib::DrawGraph(OffsetX + x, OffsetY + 18 * i,
-            //    rl_->getHdlImgMainIcon(i), TRUE); // 項目描画
             // 文字列表示
             DxLib::DrawFormatStringToHandle(OffsetX + x, OffsetY + 18 * i,
                 DxLib::GetColor(255, 255, 255),

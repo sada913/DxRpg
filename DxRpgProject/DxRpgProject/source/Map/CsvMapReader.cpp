@@ -4,6 +4,7 @@
 
 namespace Map
 {
+
 CsvMapReader::CsvMapReader()
     : size_(0), data_(NULL), mapSize_(0)
 {

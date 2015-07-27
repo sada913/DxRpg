@@ -9,6 +9,7 @@ namespace Sequence
 {
 namespace Game
 {
+
 Parent::Parent()
     : nextSequence_(NextNone), child_(NULL), mapStage_(0)
 {
@@ -98,16 +99,12 @@ void Parent::initializeParameter()
     scs_->equip_ = 20;
     scs_->level_ = 10;
 }
-/*
-int Parent::getMapStage() const
-{
-    return mapStage_;
-}
-*/
+
 void Parent::setMapStage(int mapStage)
 {
     mapStage_ = mapStage;
 }
 
 }
+
 }

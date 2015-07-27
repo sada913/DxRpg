@@ -5,15 +5,19 @@
 class ResourceLoader;
 namespace Map
 {
+
 class CsvMapReader;
 class AbstractMapCharacter;
+
 }
 // ’è”ŠÖ˜A‚Ìî•ñ
 namespace Sequence
 {
+
 class Parent;
 namespace Game
 {
+
 const int   SlidePicVal = 16;            // ƒLƒƒƒ‰c•`‰æˆÊ’u‚¸‚ç‚µ•ª
 const int   MapNum = 2;
 const char  MapFile[MapNum][MAX_PATH + 1] =
@@ -52,5 +56,7 @@ private:
     void    changeMap();
     void    drawCharacter();
 };
+
 }
+
 }

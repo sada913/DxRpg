@@ -11,6 +11,7 @@ namespace Sequence
 {
 namespace Game
 {
+
 // ƒ}ƒbƒv‰æ–Ê‚Ì‰Šú‰»ˆ—
 Map::Map(Sequence::Game::Parent *parent, int stage)
     : hasChanged_(true), mapStage_(stage) , nextSequence_(NextMap)
@@ -315,6 +316,7 @@ void Map::drawCharacter()
     }
 }
 #endif
+
 }
 
 }

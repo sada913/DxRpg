@@ -74,7 +74,7 @@ void BattleAnimation::graphAnimation(BattleCharacter *chr, BattleMonster *mon)
                             animation1(chr, i, -30, 20);
                         }
                     }
-					// 攻撃魔法
+                    // 攻撃魔法
                     else
                     {
                         // 敵
@@ -192,8 +192,8 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
     int t3 = blinkTime[kind];
     animation_[idx].cnt++;
 
-	bool cond_normal_attack = animation_[idx].kind == 10000;
-	bool cond_magical_attack = 20000 <= animation_[idx].kind && animation_[idx].kind < 30000;
+    bool cond_normal_attack = animation_[idx].kind == 10000;
+    bool cond_magical_attack = 20000 <= animation_[idx].kind && animation_[idx].kind < 30000;
 
 
     if (animation_[idx].cnt == 5 && cond_normal_attack)
@@ -201,18 +201,18 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
         // シュッ
         DxLib::PlaySoundMem(rl_->getHdlSoundEffect(6), DX_PLAYTYPE_BACK);
     }
-	// これはバグっぽいぞ……
+    // すべての種別の攻撃で判定
     if (animation_[idx].cnt == 45)
     {
         // それぞれの効果音 現状 100 ～ 304まで
         DxLib::PlaySoundMem(
             rl_->getHdlSoundEffect(animation_[idx].kind / 100), DX_PLAYTYPE_BACK);
 #ifdef _DEBUG
-		DxLib::printfDx("sound idx: %d\n", animation_[idx].kind / 100);
+        DxLib::printfDx("sound idx: %d\n", animation_[idx].kind / 100);
 #endif
-		// バックグラウンド再生 鳴らし始めるとすぐ次の処理に移る
+        // バックグラウンド再生 鳴らし始めるとすぐ次の処理に移る
     }
-	// 詠唱ロジック
+    // 詠唱ロジック
     if (animation_[idx].cnt == 5 && cond_magical_attack)
     {
         // 詠唱音
@@ -240,11 +240,11 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
             c2->getY() - 20,
             DxLib::GetColor(255, 255, 0), TRUE);
     }
-	if (animation_[idx].cnt == 25 + t2 && cond_magical_attack)
-	{
-		// 詠唱の場合 stop
-		DxLib::StopSoundMem(rl_->getHdlSoundEffect(5));
-	}
+    if (animation_[idx].cnt == 25 + t2 && cond_magical_attack)
+    {
+        // 詠唱の場合 stop
+        DxLib::StopSoundMem(rl_->getHdlSoundEffect(5));
+    }
 
     // 点滅処理
     for (int i = 0; i < 4; i++)

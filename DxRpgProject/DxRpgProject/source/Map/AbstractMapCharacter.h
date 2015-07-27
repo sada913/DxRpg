@@ -3,6 +3,7 @@
 
 namespace Map
 {
+
 const int    DefWalkSpeed    = 1;
 // ’¬‚ÌlŠÔ‚ª•à‚«‰ñ‚é“x‡‚¢ -> ‘½‚¢‚Ù‚Ç‚½‚Ü‚É‚µ‚©“®‚©‚È‚¢
 const int    WalkRand    = 100;

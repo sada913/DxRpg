@@ -8,9 +8,11 @@ class ResourceLoader;
 
 namespace Battle
 {
+
 class BattleProcess;
 class BattleCharacter;
 class BattleMonster;
+
 }
 
 namespace Sequence
@@ -55,4 +57,5 @@ private:
 };
 
 }
+
 }

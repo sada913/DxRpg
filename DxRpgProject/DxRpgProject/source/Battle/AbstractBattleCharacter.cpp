@@ -116,22 +116,6 @@ void AbstractBattleCharacter::setMotionFlag(bool motionFlag)
     motionFlag_ = motionFlag;
 }
 
-//int   AbstractBattleCharacter::getToHp() const
-//{
-//    return toHp_;
-//}
-
-//void  AbstractBattleCharacter::setToHp(int toHp)
-//{
-//    toHp_ = toHp;
-//}
-
-//void  AbstractBattleCharacter::increaseToHp(int damage)
-//{
-//    toHp_ += damage;
-//}
-
-
 Status &AbstractBattleCharacter::getStatus()
 {
     return status_;

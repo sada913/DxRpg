@@ -2,6 +2,7 @@
 
 namespace Map
 {
+
 AbstractMapCharacter::AbstractMapCharacter()
     : x_(0), y_(0), walkPixel_(0), walkFlag_(false), dir_(0),
     flag_(0), img_(0), imgFlag_(0), kind_(0),

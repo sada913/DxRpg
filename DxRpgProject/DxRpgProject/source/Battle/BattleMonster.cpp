@@ -47,7 +47,6 @@ void BattleMonster::initializeParameter()
     atbCnt_ = DxLib::GetRand(235);  // カウンター240で行動可
     atbCntFlag_ = true;
     motionFlag_ = false;
-    //toHp_ = scs_->hp_;
     menuSelect_ = 1;
     menuSelectY_ = 0;
     actionCnt_ = 0;

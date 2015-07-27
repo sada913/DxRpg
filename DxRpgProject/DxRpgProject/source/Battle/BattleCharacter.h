@@ -16,7 +16,6 @@ public:
     void    pressedKeyX();
     void    pressedKeyZ();
     void    resetSelectState();
-    void    changeAbility();
 
 private:
     void    initializeParameter() override;

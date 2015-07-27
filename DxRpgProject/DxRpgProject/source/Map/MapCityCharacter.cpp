@@ -2,6 +2,7 @@
 
 namespace Map
 {
+
 void MapCityCharacter::initMapState(int tx, int ty, int dir, int kind)
 {
     x_ = tx;

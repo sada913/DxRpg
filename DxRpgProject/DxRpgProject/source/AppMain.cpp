@@ -14,10 +14,11 @@ int APIENTRY WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #endif   
     DxLib::SetWindowTextA("DX RPG");    // タイトルをセット
     SetWindowIconID(ID_ICON);           // アイコンをセット
-    // ウィンドウモードにセット
+    // ウィンドウモードにセット、マウス非表示
     if ( DxLib::ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK
         || DxLib::DxLib_Init() == -1
-        || DxLib::SetWindowSizeExtendRate(1.0) == -1 )
+        || DxLib::SetWindowSizeExtendRate(1.0) == -1
+        || DxLib::SetMouseDispFlag(FALSE) == -1)
     {
         return -1;
     }
