@@ -202,7 +202,7 @@ void  BattleAnimation::animation0(int idx, AbstractBattleCharacter *c1,
         DxLib::PlaySoundMem(rl_->getHdlSoundEffect(6), DX_PLAYTYPE_BACK);
     }
     // ‚·‚×‚Ä‚Ìí•Ê‚ÌUŒ‚‚Å”»’è
-    if (animation_[idx].cnt == 45)
+    if (animation_[idx].cnt == 5 + t2)
     {
         // ‚»‚ê‚¼‚ê‚ÌŒø‰Ê‰¹ Œ»ó 100 ` 304‚Ü‚Å
         DxLib::PlaySoundMem(

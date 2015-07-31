@@ -125,8 +125,7 @@ private:
     int    calcLine(int ix1, int iy1, int ix2, int iy2, int iy3, int ix);
 
     void   graphBar(int x, int y, int hp, int hpMax,
-        int mp, int mpMax, int tp, int atbCnt,
-        int actCnt, int damActCnt);
+        int mp, int mpMax, int tp, int atbCnt);
     void   decorateMeter(int x, int y, int h, int len);
 
     void   graphGameover();

@@ -569,17 +569,13 @@ void BattleProcess::displayMeter()
     graphBar(MonMtX, MonMtY,
         mon_->getScs()->hp_, mon_->getScs()->hpMax_,
         mon_->getScs()->mp_, mon_->getScs()->mpMax_,
-        mon_->getTp(), mon_->getAtbCnt(),
-        mon_->getActionCnt(),
-        mon_->getDamageActionCnt()
+        mon_->getTp(), mon_->getAtbCnt()
         );
     decreaseHpAction(chr_);
     graphBar(ChrMtX, ChrMtY,
         chr_->getScs()->hp_, chr_->getScs()->hpMax_,
         chr_->getScs()->mp_, chr_->getScs()->mpMax_,
-        chr_->getTp(), chr_->getAtbCnt(),
-        chr_->getActionCnt(),
-        chr_->getDamageActionCnt()
+        chr_->getTp(), chr_->getAtbCnt()
         );
 }
 
@@ -657,8 +653,7 @@ void BattleProcess::decreaseHpAction(AbstractBattleCharacter *c)
 }
 
 void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
-    int mp, int mpMax, int tp, int atbCnt,
-    int actCnt, int damActCnt)
+    int mp, int mpMax, int tp, int atbCnt)
 {
     const int MeterHeight = 5;
     const int OffsetY = 25;
