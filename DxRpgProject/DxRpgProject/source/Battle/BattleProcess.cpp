@@ -799,10 +799,10 @@ void BattleProcess::graphBar(int x, int y, int hp, int hpMax,
         rl_->getHdlFont(0), "ATB %7d", atbCnt);    // ATB”’l•\Ž¦
 
 #ifdef _DEBUG
-    DxLib::DrawFormatStringToHandle(x, y - (OffsetY * 3) + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "ACT    : %3d", actCnt);
-    DxLib::DrawFormatStringToHandle(x, y - (OffsetY * 2) + 4, DxLib::GetColor(255, 255, 255),
-        rl_->getHdlFont(0), "DAM ACT: %3d", damActCnt);
+//    DxLib::DrawFormatStringToHandle(x, y - (OffsetY * 3) + 4, DxLib::GetColor(255, 255, 255),
+//        rl_->getHdlFont(0), "ACT    : %3d", actCnt);
+//    DxLib::DrawFormatStringToHandle(x, y - (OffsetY * 2) + 4, DxLib::GetColor(255, 255, 255),
+//        rl_->getHdlFont(0), "DAM ACT: %3d", damActCnt);
 #endif
 
 }
